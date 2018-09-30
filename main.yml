@@ -87,7 +87,6 @@
       - 'docker'
       - 'licecap'
       - 'sequel-pro'
-      - 'transmit'
       - 'skitch'
       - 'flux'
     mas_installed_apps:
@@ -113,6 +112,7 @@
         name: "Kindle"
       - id: 460866217
         name: 'Simple Desktops'
-
+      - id: 1333542190
+        name: '1Password 7 - Password Manager'
   roles:
     - 'geerlingguy.mas'
