@@ -1,0 +1,118 @@
+---
+- hosts: 'localhost'
+  tasks:
+    - block:
+      - name: 'configure passwordless sudo'
+        lineinfile:
+          dest: '/etc/sudoers'
+          regexp: '^%admin'
+          line: '%admin ALL=(ALL) NOPASSWD: ALL'
+          validate: '/usr/sbin/visudo -cf %s'
+      become: true
+    - name: 'Install Homebrew packages'
+      homebrew:
+        name: '{{ item.name }}'
+        install_options: '{{ item.install_options|default() }}'
+      with_items: '{{ homebrew_packages }}'
+    - name: 'Install Homebrew Cask packages'
+      homebrew_cask:
+        name: '{{ item }}'
+      with_items: '{{ homebrew_cask_packages }}'
+    - block:
+      - file:
+          src: '{{ ansible_user_dir }}/Dropbox/dotfiles/{{ item.path }}'
+          dest: '{{ ansible_user_dir }}/{{ item.dest }}'
+          state: 'link'
+        with_items:
+          - path: 'bash_profile'
+            dest: '.bash_profile'
+          - path: 'config'
+            dest: '.config'
+          - path: 'python'
+            dest: '.python'
+          - path: 'ssh'
+            dest: '.ssh'
+          - path: 'vim/vim'
+            dest: '.vim'
+          - path: 'vim/vimrc'
+            dest: '.vimrc'
+      - file:
+          path: '{{ ansible_user_dir }}/{{ item.path }}'
+          mode: '{{ item.mode }}'
+        with_items:
+          - path: '.ssh'
+            mode: '0700'
+          - path: '.ssh/id_rsa'
+            mode: '0600'
+      - file:
+          path: '{{ ansible_user_dir }}/.local_config'
+          state: 'directory'
+      - copy:
+          content: |
+            Host *
+              UseKeychain yes
+          dest: '{{ ansible_user_dir }}/.local_config/ssh_config'
+
+      tags: 'files'
+  vars:
+    homebrew_packages:
+      - name: 'vim'
+        with_options: 'with-cscope,with-python,with-lua,override-system-vim'
+      - name: 'htop'
+      - name: 'bash-completion'
+      - name: 'git'
+      - name: 'hub'
+      - name: 'iperf'
+      - name: 'iperf3'
+      - name: 'nmap'
+      - name: 'ssh-copy-id'
+      - name: 'readline'
+      - name: 'pv'
+      - name: 'wget'
+      - name: 'irssi'
+      - name: 'mtr'
+    homebrew_cask_packages:
+      - 'iterm2'
+      - 'dropbox'
+      - 'google-chrome'
+      - 'virtualbox'
+      - 'virtualbox-extension-pack'
+      - 'vagrant'
+      - 'packer'
+      - 'spotify'
+      - 'karabiner-elements'
+      - 'istat-menus'
+      - 'sizeup'
+      - 'macvim'
+      - 'docker'
+      - 'licecap'
+      - 'sequel-pro'
+      - 'transmit'
+      - 'skitch'
+      - 'flux'
+    mas_installed_apps:
+      - id: 803453959
+        name: "Slack"
+      - id: 1384080005
+        name: "Tweetbot 3 for Twitter"
+      - id: 1278508951
+        name: "Trello"
+      - id: 406825478
+        name: "Telephone"
+      - id: 599327197
+        name: "Collective"
+      - id: 1295203466
+        name: "Microsoft Remote Desktop 10"
+      - id: 412529613
+        name: "Cinch"
+      - id: 407963104
+        name: "Pixelmator"
+      - id: 425424353
+        name: "The Unarchiver"
+      - id: 405399194
+        name: "Kindle"
+      - id: 460866217
+        name: 'Simple Desktops'
+
+  roles:
+    - 'geerlingguy.mas'
