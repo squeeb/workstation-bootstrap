@@ -89,6 +89,10 @@
       - 'sequel-pro'
       - 'skitch'
       - 'flux'
+      - 'font-inconsolata'
+      - 'font-inconsolata-for-powerline'
+    homebrew_taps:
+      - 'homebrew/cask-fonts'
     mas_installed_apps:
       - id: 803453959
         name: "Slack"
