@@ -19,6 +19,11 @@
         name: '{{ item }}'
       with_items: '{{ homebrew_cask_packages }}'
     - block:
+      - name: 'setup shortcut to dropbox code dir'
+        file:
+          src: '{{ ansible_user_dir }}/Dropbox/Code'
+          dest: '{{ ansible_user_dir }}/Code'
+          state: 'link'
       - file:
           src: '{{ ansible_user_dir }}/Dropbox/dotfiles/{{ item.path }}'
           dest: '{{ ansible_user_dir }}/{{ item.dest }}'
