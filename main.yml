@@ -108,6 +108,7 @@
       - 'flux'
       - 'font-inconsolata'
       - 'font-inconsolata-for-powerline'
+      - 'aerial'
     homebrew_taps:
       - 'homebrew/cask-fonts'
     mas_installed_apps:
