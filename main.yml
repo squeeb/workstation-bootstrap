@@ -1,6 +1,9 @@
 ---
 - hosts: 'localhost'
   tasks:
+    - name: 'install bash from homebrew first'
+      homebrew:
+        name: 'bash'
     - block:
       - name: 'configure passwordless sudo'
         lineinfile:
@@ -8,6 +11,12 @@
           regexp: '^%admin'
           line: '%admin ALL=(ALL) NOPASSWD: ALL'
           validate: '/usr/sbin/visudo -cf %s'
+      - name: 'add custom bash'
+        lineinfile:
+          dest: '/etc/shells'
+          line: '/usr/local/bin/bash'
+      - name: 'change my default shell'
+        command: 'chsh -s /usr/local/bin/bash squeeb'
       become: true
     - name: 'Install Homebrew packages'
       homebrew:
@@ -76,6 +85,10 @@
       - name: 'wget'
       - name: 'irssi'
       - name: 'mtr'
+      - name: 'jq'
+      - name: 'kubectl'
+      - name: 'vault'
+      - name: 'openssl'
     homebrew_cask_packages:
       - 'iterm2'
       - 'dropbox'
@@ -86,7 +99,6 @@
       - 'packer'
       - 'spotify'
       - 'karabiner-elements'
-      - 'istat-menus'
       - 'sizeup'
       - 'macvim'
       - 'docker'
@@ -123,5 +135,7 @@
         name: 'Simple Desktops'
       - id: 1333542190
         name: '1Password 7 - Password Manager'
+      - id: 1319778037
+        name: 'iStat Menus'
   roles:
     - 'geerlingguy.mas'
