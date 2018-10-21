@@ -89,6 +89,7 @@
       - name: 'kubectl'
       - name: 'vault'
       - name: 'openssl'
+      - name: 'coreutils'
     homebrew_cask_packages:
       - 'iterm2'
       - 'dropbox'
