@@ -90,6 +90,10 @@
       - name: 'vault'
       - name: 'openssl'
       - name: 'coreutils'
+      - name: 'telnet'
+      - name: 'ipcalc'
+      - name: 'minicom'
+      - name: 'git-lfs'
     homebrew_cask_packages:
       - 'iterm2'
       - 'dropbox'
@@ -110,6 +114,8 @@
       - 'font-inconsolata'
       - 'font-inconsolata-for-powerline'
       - 'aerial'
+      - 'boostnote'
+      - 'tigervnc-viewer'
     homebrew_taps:
       - 'homebrew/cask-fonts'
     mas_installed_apps:
