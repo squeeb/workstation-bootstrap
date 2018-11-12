@@ -94,6 +94,8 @@
       - name: 'ipcalc'
       - name: 'minicom'
       - name: 'git-lfs'
+      - name: 'graphviz'
+      - name: 'bat'
     homebrew_cask_packages:
       - 'iterm2'
       - 'dropbox'
