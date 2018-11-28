@@ -118,6 +118,7 @@
       - 'aerial'
       - 'boostnote'
       - 'tigervnc-viewer'
+      - 'Paste'
     homebrew_taps:
       - 'homebrew/cask-fonts'
     mas_installed_apps:
@@ -129,8 +130,6 @@
         name: "Trello"
       - id: 406825478
         name: "Telephone"
-      - id: 599327197
-        name: "Collective"
       - id: 1295203466
         name: "Microsoft Remote Desktop 10"
       - id: 412529613
