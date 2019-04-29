@@ -97,6 +97,8 @@
       - name: 'graphviz'
       - name: 'bat'
       - name: 'tiger-vnc'
+      - name: 'httpie'
+      - name: 'cfssl'
     homebrew_cask_packages:
       - 'iterm2'
       - 'dropbox'
@@ -121,6 +123,7 @@
       - 'tigervnc-viewer'
       - 'Paste'
       - 'xquartz'
+      - 'google-cloud-sdk'
     homebrew_taps:
       - 'homebrew/cask-fonts'
     mas_installed_apps:
