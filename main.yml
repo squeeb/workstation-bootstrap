@@ -18,15 +18,15 @@
       - name: 'change my default shell'
         command: 'chsh -s /usr/local/bin/bash squeeb'
       become: true
+    - name: 'Install Homebrew Cask packages'
+      homebrew_cask:
+        name: '{{ item }}'
+      with_items: '{{ homebrew_cask_packages }}'
     - name: 'Install Homebrew packages'
       homebrew:
         name: '{{ item.name }}'
         install_options: '{{ item.install_options|default() }}'
       with_items: '{{ homebrew_packages }}'
-    - name: 'Install Homebrew Cask packages'
-      homebrew_cask:
-        name: '{{ item }}'
-      with_items: '{{ homebrew_cask_packages }}'
     - block:
       - name: 'setup shortcut to dropbox code dir'
         file:
@@ -101,8 +101,8 @@
       - 'iterm2'
       - 'dropbox'
       - 'google-chrome'
-      - 'virtualbox'
-      - 'virtualbox-extension-pack'
+        #      - 'virtualbox'
+        #      - 'virtualbox-extension-pack'
       - 'vagrant'
       - 'packer'
       - 'spotify'
@@ -114,15 +114,20 @@
       - 'sequel-pro'
       - 'skitch'
       - 'flux'
-      - 'font-inconsolata'
-      - 'font-inconsolata-for-powerline'
+      - 'homebrew/cask-fonts/font-inconsolata'
+      - 'homebrew/cask-fonts/font-inconsolata-for-powerline'
       - 'aerial'
       - 'boostnote'
       - 'tigervnc-viewer'
-      - 'Paste'
       - 'xquartz'
+      - 'homebrew/cask-drivers/prolific-pl2303'
+      - 'paste'
+      - 'dash'
+      - 'vnc-viewer'
+      - 'tunnelblick'
     homebrew_taps:
       - 'homebrew/cask-fonts'
+      - 'homebrew/cask-drivers'
     mas_installed_apps:
       - id: 803453959
         name: "Slack"
@@ -142,13 +147,13 @@
         name: "The Unarchiver"
       - id: 405399194
         name: "Kindle"
-      - id: 460866217
-        name: 'Simple Desktops'
       - id: 1333542190
         name: '1Password 7 - Password Manager'
       - id: 1319778037
         name: 'iStat Menus'
       - id: 639968404
         name: 'Parcel - Delivery Tracking'
+      - id: 1147396723
+        name: 'WhatsApp Desktop'
   roles:
     - 'geerlingguy.mas'
