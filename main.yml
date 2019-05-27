@@ -68,6 +68,10 @@
           dest: '{{ ansible_user_dir }}/.local_config/ssh_config'
 
       tags: 'files'
+    - name: 'set preferences'
+      command: '{{ item }}'
+      with_items: '{{ preferences }}'
+      tags: 'defaults'
   vars:
     homebrew_packages:
       - name: 'vim'
@@ -90,7 +94,6 @@
       - name: 'vault'
       - name: 'openssl'
       - name: 'coreutils'
-      - name: 'telnet'
       - name: 'ipcalc'
       - name: 'minicom'
       - name: 'git-lfs'
@@ -99,13 +102,17 @@
       - name: 'tiger-vnc'
       - name: 'httpie'
       - name: 'cfssl'
+      - name: 'ipmitool'
+      - name: 'ipmiutil'
+      - name: 'inetutils'
     homebrew_cask_packages:
+      - 'wireshark'
       - 'macdown'
       - 'iterm2'
       - 'dropbox'
       - 'google-chrome'
-        #      - 'virtualbox'
-        #      - 'virtualbox-extension-pack'
+      - 'virtualbox'
+      - 'virtualbox-extension-pack'
       - 'vagrant'
       - 'packer'
       - 'spotify'
@@ -126,7 +133,6 @@
       - 'google-cloud-sdk'
       - 'homebrew/cask-drivers/prolific-pl2303'
       - 'paste'
-      - 'dash'
       - 'vnc-viewer'
       - 'tunnelblick'
     homebrew_taps:
@@ -159,5 +165,7 @@
         name: 'Parcel - Delivery Tracking'
       - id: 1147396723
         name: 'WhatsApp Desktop'
+    preferences:
+      - 'defaults write com.apple.Safari IncludeInternalDebugMenu 1'
   roles:
     - 'geerlingguy.mas'
