@@ -117,7 +117,7 @@
       - 'packer'
       - 'spotify'
       - 'karabiner-elements'
-      - 'sizeup'
+      # - 'sizeup'
       - 'macvim'
       - 'docker'
       - 'licecap'
@@ -149,8 +149,8 @@
         name: "Telephone"
       - id: 1295203466
         name: "Microsoft Remote Desktop 10"
-      - id: 412529613
-        name: "Cinch"
+      # - id: 412529613
+      #   name: "Cinch"
       - id: 407963104
         name: "Pixelmator"
       - id: 425424353
@@ -165,6 +165,8 @@
         name: 'Parcel - Delivery Tracking'
       - id: 1147396723
         name: 'WhatsApp Desktop'
+      - id: 441258766
+        name: 'Magnet'
     preferences:
       - 'defaults write com.apple.Safari IncludeInternalDebugMenu 1'
   roles:
