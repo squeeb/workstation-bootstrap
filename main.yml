@@ -18,23 +18,26 @@
       - name: 'change my default shell'
         command: 'chsh -s /usr/local/bin/bash squeeb'
       become: true
+      ignore_errors: true
     - name: 'Install Homebrew Cask packages'
       homebrew_cask:
         name: '{{ item }}'
       with_items: '{{ homebrew_cask_packages }}'
+      ignore_errors: true
     - name: 'Install Homebrew packages'
       homebrew:
         name: '{{ item.name }}'
         install_options: '{{ item.install_options|default() }}'
       with_items: '{{ homebrew_packages }}'
+      ignore_errors: true
     - block:
       - name: 'setup shortcut to dropbox code dir'
         file:
-          src: '{{ ansible_user_dir }}/Dropbox/Code'
+          src: '{{ ansible_user_dir }}/Nextcloud/Code'
           dest: '{{ ansible_user_dir }}/Code'
           state: 'link'
       - file:
-          src: '{{ ansible_user_dir }}/Dropbox/dotfiles/{{ item.path }}'
+          src: '{{ ansible_user_dir }}/Nextcloud/dotfiles/{{ item.path }}'
           dest: '{{ ansible_user_dir }}/{{ item.dest }}'
           state: 'link'
         with_items:
@@ -68,10 +71,54 @@
           dest: '{{ ansible_user_dir }}/.local_config/ssh_config'
 
       tags: 'files'
+      ignore_errors: true
     - name: 'set preferences'
       command: '{{ item }}'
       with_items: '{{ preferences }}'
       tags: 'defaults'
+      ignore_errors: true
+    - name: 'get my uid'
+      command: 'id -u'
+      register: 'my_uid'
+      tags: 'services'
+      ignore_errors: true
+    - name: 'stop stupid services'
+      command: 'launchctl kill {{ item }}'
+      tags: 'services'
+      with_items:
+        - 'system/com.apple.gamed'
+      ignore_errors: true
+      become: true
+    - name: 'disable stupid services'
+      command: 'launchctl disable {{ item }}'
+      tags: 'services'
+      with_items:
+        - 'system/com.apple.gamed'
+      ignore_errors: true
+      become: true
+    - name: 'enable stupid services'
+      command: 'launchctl disable {{ item }}'
+      tags: 'services'
+      with_items:
+        - 'user/{{ my_uid.stdout }}/com.apple.photoanalysisd'
+        - 'system/com.apple.iconservices.iconservicesd'
+        - 'system/com.apple.iconservices.iconservicesagent'
+      ignore_errors: true
+    - name: 'start stupid services'
+      command: 'launchctl start {{ item }}'
+      tags: 'services'
+      with_items:
+        - 'user/{{ my_uid.stdout }}/com.apple.photoanalysisd'
+        - 'system/com.apple.iconservices.iconservicesd'
+        - 'system/com.apple.iconservices.iconservicesagent'
+      ignore_errors: true
+      become: true
+    - name: "unhide stuff that shouldn't be hidden"
+      command: 'chflags nohidden {{ item }}'
+      with_items:
+        - '~/Library/'
+      tags: 'unhide'
+      ignore_errors: true
   vars:
     homebrew_packages:
       - name: 'vim'
@@ -159,8 +206,8 @@
         name: "Kindle"
       - id: 1333542190
         name: '1Password 7 - Password Manager'
-      - id: 1319778037
-        name: 'iStat Menus'
+      # - id: 1319778037
+      #   name: 'iStat Menus'
       - id: 639968404
         name: 'Parcel - Delivery Tracking'
       - id: 1147396723
@@ -169,5 +216,7 @@
         name: 'Magnet'
     preferences:
       - 'defaults write com.apple.Safari IncludeInternalDebugMenu 1'
+      - 'defaults write com.apple.finder AppleShowAllFiles TRUE'
+      - 'defaults write -g ApplePressAndHoldEnabled -bool false'
   roles:
     - 'geerlingguy.mas'
