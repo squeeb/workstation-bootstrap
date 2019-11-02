@@ -31,13 +31,9 @@
       with_items: '{{ homebrew_packages }}'
       ignore_errors: true
     - block:
-      - name: 'setup shortcut to dropbox code dir'
+      - name: 'Symlink Dotfiles'
         file:
-          src: '{{ ansible_user_dir }}/Nextcloud/Code'
-          dest: '{{ ansible_user_dir }}/Code'
-          state: 'link'
-      - file:
-          src: '{{ ansible_user_dir }}/Nextcloud/dotfiles/{{ item.path }}'
+          src: '{{ ansible_user_dir }}/Dropbox/dotfiles/{{ item.path }}'
           dest: '{{ ansible_user_dir }}/{{ item.dest }}'
           state: 'link'
         with_items:
