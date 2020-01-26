@@ -92,23 +92,23 @@
         - 'system/com.apple.gamed'
       ignore_errors: true
       become: true
-    - name: 'enable stupid services'
-      command: 'launchctl disable {{ item }}'
-      tags: 'services'
-      with_items:
-        - 'user/{{ my_uid.stdout }}/com.apple.photoanalysisd'
-        - 'system/com.apple.iconservices.iconservicesd'
-        - 'system/com.apple.iconservices.iconservicesagent'
-      ignore_errors: true
-    - name: 'start stupid services'
-      command: 'launchctl start {{ item }}'
-      tags: 'services'
-      with_items:
-        - 'user/{{ my_uid.stdout }}/com.apple.photoanalysisd'
-        - 'system/com.apple.iconservices.iconservicesd'
-        - 'system/com.apple.iconservices.iconservicesagent'
-      ignore_errors: true
-      become: true
+    # - name: 'enable stupid services'
+    #   command: 'launchctl disable {{ item }}'
+    #   tags: 'services'
+    #   with_items:
+    #     - 'user/{{ my_uid.stdout }}/com.apple.photoanalysisd'
+    #     - 'system/com.apple.iconservices.iconservicesd'
+    #     - 'system/com.apple.iconservices.iconservicesagent'
+    #   ignore_errors: true
+    # - name: 'start stupid services'
+    #   command: 'launchctl start {{ item }}'
+    #   tags: 'services'
+    #   with_items:
+    #     - 'user/{{ my_uid.stdout }}/com.apple.photoanalysisd'
+    #     - 'system/com.apple.iconservices.iconservicesd'
+    #     - 'system/com.apple.iconservices.iconservicesagent'
+    #   ignore_errors: true
+    #   become: true
     - name: "unhide stuff that shouldn't be hidden"
       command: 'chflags nohidden {{ item }}'
       with_items:
@@ -157,10 +157,8 @@
       - 'virtualbox'
       - 'virtualbox-extension-pack'
       - 'vagrant'
-      - 'packer'
       - 'spotify'
       - 'karabiner-elements'
-      # - 'sizeup'
       - 'macvim'
       - 'docker'
       - 'licecap'
@@ -178,6 +176,7 @@
       - 'paste'
       - 'vnc-viewer'
       - 'tunnelblick'
+      - 'powermate'
     homebrew_taps:
       - 'homebrew/cask-fonts'
       - 'homebrew/cask-drivers'
