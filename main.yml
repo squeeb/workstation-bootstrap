@@ -33,7 +33,7 @@
     - block:
       - name: 'Symlink Dotfiles'
         file:
-          src: '{{ ansible_user_dir }}/Dropbox/dotfiles/{{ item.path }}'
+          src: '{{ ansible_user_dir }}/Nextcloud/dotfiles/{{ item.path }}'
           dest: '{{ ansible_user_dir }}/{{ item.dest }}'
           state: 'link'
         with_items:
