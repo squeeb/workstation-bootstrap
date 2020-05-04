@@ -1,5 +1,6 @@
 ---
 - hosts: 'localhost'
+  connection: 'local'
   tasks:
     - name: 'install bash from homebrew first'
       homebrew:
