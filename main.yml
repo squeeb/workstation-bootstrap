@@ -182,6 +182,7 @@
       - 'paste'
       - 'vnc-viewer'
       - 'tunnelblick'
+      - 'mysqlworkbench'
     homebrew_taps:
       - 'homebrew/cask-fonts'
       - 'homebrew/cask-drivers'
