@@ -154,6 +154,8 @@
       - name: 'inetutils'
       - name: 'pyenv'
       - name: 'pyenv-virtualenv'
+      - name: 'packer'
+      - name: 'packer-completion'
     homebrew_cask_packages:
       - 'wireshark'
       - 'macdown'
