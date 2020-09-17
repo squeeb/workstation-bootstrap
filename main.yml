@@ -34,7 +34,7 @@
     - block:
       - name: 'Symlink Dotfiles'
         file:
-          src: '{{ ansible_user_dir }}/Nextcloud/dotfiles/{{ item.path }}'
+          src: '{{ shared_location }}/Nextcloud/dotfiles/{{ item.path }}'
           dest: '{{ ansible_user_dir }}/{{ item.dest }}'
           state: 'link'
         with_items:
@@ -226,6 +226,12 @@
       - 'defaults write com.apple.ImageCapture disableHotPlug -bool true'
       - 'defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true'
       - 'defaults write NSGlobalDomain AppleShowAllExtensions -bool true'
+      - 'defaults write com.apple.finder QuitMenuItem -bool true'
+      - 'defaults write com.apple.finder DisableAllAnimations -bool true'
+      - 'defaults write com.apple.mail DisableReplyAnimations -bool true'
+      - 'defaults write com.apple.mail DisableSendAnimations -bool true'
+      - 'defaults write com.apple.Safari WebKitInitialTimedLayoutDelay 0.25'
+    shared_location: '/Volumes/Shared/{{ ansible_user_id }}'
   roles:
     - 'geerlingguy.mas'
   handlers:
