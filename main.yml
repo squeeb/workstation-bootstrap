@@ -185,6 +185,8 @@
       - 'vnc-viewer'
       - 'tunnelblick'
       - 'mysqlworkbench'
+      - 'macs-fan-control'
+      - 'bartender'
     homebrew_taps:
       - 'homebrew/cask-fonts'
       - 'homebrew/cask-drivers'
@@ -199,8 +201,6 @@
         name: "Telephone"
       - id: 1295203466
         name: "Microsoft Remote Desktop 10"
-      # - id: 412529613
-      #   name: "Cinch"
       - id: 407963104
         name: "Pixelmator"
       - id: 425424353
@@ -215,8 +215,8 @@
         name: 'Parcel - Delivery Tracking'
       - id: 1147396723
         name: 'WhatsApp Desktop'
-      - id: 441258766
-        name: 'Magnet'
+      - id: 419330170
+        name: 'Moom'
     preferences:
       - 'defaults write com.apple.Safari IncludeInternalDebugMenu 1'
       - 'defaults write com.apple.finder AppleShowAllFiles FALSE'
